@@ -51,5 +51,27 @@ public class AccountType extends NamedAbstractEntity {
         return Optional.empty();
     }
 
+    public PositionType addPositionType(String name){
+        PositionType positionType = new PositionType(this, name);
+        positionTypes.add(positionType);
+        return positionType;
+    }
+
+    public TransactionType addTransactionType(String name, boolean hasMaximumPrecission){
+        TransactionType transactionType = new TransactionType(this,name, hasMaximumPrecission);
+        transactionTypes.add(transactionType);
+
+        return transactionType;
+    }
+
+    public Optional<PositionType> getPositionTypeByName(String name){
+        return positionTypes.stream().filter(pt -> pt.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    public Optional<TransactionType> getTransactionTypeByName(String name){
+        return transactionTypes.stream().filter(tt->tt.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+
 
 }

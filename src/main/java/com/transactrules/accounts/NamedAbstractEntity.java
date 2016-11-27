@@ -3,7 +3,7 @@ package com.transactrules.accounts;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Created by 313798977 on 2016/11/11.
+ * Created by Igor Music on 2016/11/11.
  */
 @MappedSuperclass
 public class NamedAbstractEntity extends AbstractEntity {
@@ -20,6 +20,10 @@ public class NamedAbstractEntity extends AbstractEntity {
 
     public String getName(){
         return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
 }

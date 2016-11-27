@@ -11,8 +11,6 @@ public interface AccountValuationService {
 
     void initialize(Account account);
 
-    void processTransaction(Transaction transaction) throws Exception;
-
-    Transaction CreateTransaction(TransactionType transactionType, BigDecimal amount);
+    Transaction createTransaction(TransactionType transactionType, BigDecimal amount);
 
 }

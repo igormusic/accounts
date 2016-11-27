@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -23,11 +24,11 @@ public class TransactionType extends NamedAbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<TransactionRuleType> transactionRules;
 
-    public TransactionType(String name, AccountType accountType, boolean hasMaximumPrecission, Set<TransactionRuleType> transactionRules) {
+    public TransactionType(AccountType accountType,String name,  boolean hasMaximumPrecission) {
         super(name);
         this.accountType = accountType;
         this.maximumPrecision = hasMaximumPrecission;
-        this.transactionRules = transactionRules;
+        this.transactionRules = new HashSet<>();
     }
 
     TransactionType(){

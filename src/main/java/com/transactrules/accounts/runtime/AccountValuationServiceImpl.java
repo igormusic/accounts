@@ -63,39 +63,23 @@ public class AccountValuationServiceImpl implements AccountValuationService {
         }
     }
 
-    @Override
-    public void processTransaction(Transaction transaction) throws Exception {
-        Optional<TransactionType> transactionType
-                = accountType.getTransactionType(transaction.getTransactionTypeId());
+    private void processTransaction(TransactionType transactionType, BigDecimal amount) {
 
-        if(transactionType.isPresent()==false){
-            throw new Exception(
-                    String.format(
-                            "TrasnactionType with Id %d not defined for this AccountType",
-                            transaction.getTransactionTypeId()
-                    )
-            );
-        }
-
-        for (TransactionRuleType rule: transactionType.get().getTransactionRules()) {
+        for (TransactionRuleType rule: transactionType.getTransactionRules()) {
             Position position = positionMap.get(rule.getPositionTypeId());
 
-            position.applyOperation(rule.getTransactionOperation(), transaction.getAmount());
+            position.applyOperation(rule.getTransactionOperation(), amount);
         }
-
     }
 
     @Override
-    public Transaction CreateTransaction(TransactionType transactionType, BigDecimal amount) {
-//        var transaction = new Transaction { TransactionType = transactionType, Amount = amount };
-//        ProcessTransaction(transaction);
-//        Transactions.Add(transaction);
-//
-//        return transaction;
+    public Transaction createTransaction(TransactionType transactionType, BigDecimal amount) {
 
         Transaction transaction = new Transaction(transactionType.getId(),amount,account, actionDate, valueDate);
 
-        processTransaction(transaction);
+        processTransaction(transactionType, amount);
+
+        account.getTransactions().add(transaction);
 
         return transaction;
     }
