@@ -33,7 +33,7 @@ public class AccountServiceTest {
     @Autowired
     private AccountValuationService accountValuationService;
 
-    private AccountType savingsAccountType = AccountTypeFactory.CreateSavingsAccountType();
+    private AccountType savingsAccountType = AccountTypeFactory.createSavingsAccountType();
 
     @Before
     public void initialize()

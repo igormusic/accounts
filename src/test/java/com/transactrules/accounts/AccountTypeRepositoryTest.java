@@ -42,7 +42,17 @@ public class AccountTypeRepositoryTest {
         boolean exists =  repository.exists(accountType.getId());
 
         assertThat(exists, is(false));
+    }
 
+    @Test
+    public void CreateUpdateDelete_savings_account(){
+        AccountType savingsAccount = AccountTypeFactory.createSavingsAccountType();
+
+        repository.saveAndFlush(savingsAccount);
+
+        AccountType  readAccountType = repository.findOne(savingsAccount.getId());
+
+        assertThat( readAccountType.getPositionTypes().size(), is(2));
 
     }
 

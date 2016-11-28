@@ -5,6 +5,7 @@ import com.transactrules.accounts.NamedAbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Optional;
@@ -17,10 +18,10 @@ import java.util.Set;
 @Entity
 public class AccountType extends NamedAbstractEntity {
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PositionType> positionTypes = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<TransactionType> transactionTypes = new HashSet<>();
 
     AccountType() {

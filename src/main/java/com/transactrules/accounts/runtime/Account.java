@@ -23,7 +23,7 @@ public class Account extends AbstractEntity {
     private Set<Position> positions = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Set<Transaction> transactions;
+    private Set<Transaction> transactions = new HashSet<>();
 
     Account(){
 

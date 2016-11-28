@@ -10,7 +10,7 @@ import com.transactrules.accounts.configuration.*;
 public class AccountTypeFactory {
 
 
-    public static AccountType CreateSavingsAccountType()
+    public static AccountType createSavingsAccountType()
     {
         AccountType accountType = new AccountType( "SavingsAccount");
 
