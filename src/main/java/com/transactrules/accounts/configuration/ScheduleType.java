@@ -3,25 +3,27 @@ package com.transactrules.accounts.configuration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.transactrules.accounts.NamedAbstractEntity;
 
-import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 /**
- * Define configuration for position type
+ * Created by Administrator on 11/27/2016.
  */
-
-@Entity
-public class PositionType  extends NamedAbstractEntity {
-
+public class ScheduleType extends NamedAbstractEntity {
     @JsonIgnore
     @ManyToOne
     private AccountType accountType;
 
-    PositionType() {
+    @Enumerated(EnumType.STRING)
+    private ScheduleType scheduleType;
 
-    }
+    @Enumerated(EnumType.STRING)
+    private ScheduleEndType scheduleEndType;
 
-    public PositionType(AccountType accountType, String name) {
+    ScheduleType(){}
+
+    ScheduleType(AccountType accountType, String name) {
         this.accountType = accountType;
         this.name = name;
     }
@@ -29,5 +31,4 @@ public class PositionType  extends NamedAbstractEntity {
     public AccountType getAccountType() {
         return accountType;
     }
-
 }

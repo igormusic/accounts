@@ -3,25 +3,20 @@ package com.transactrules.accounts.configuration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.transactrules.accounts.NamedAbstractEntity;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 /**
- * Define configuration for position type
+ * Created by Administrator on 11/27/2016.
  */
-
-@Entity
-public class PositionType  extends NamedAbstractEntity {
+public class DateType extends NamedAbstractEntity {
 
     @JsonIgnore
     @ManyToOne
     private AccountType accountType;
 
-    PositionType() {
+    DateType(){}
 
-    }
-
-    public PositionType(AccountType accountType, String name) {
+    DateType(AccountType accountType, String name) {
         this.accountType = accountType;
         this.name = name;
     }
