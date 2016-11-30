@@ -4,7 +4,6 @@ import com.transactrules.accounts.configuration.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Set;
 
 public abstract class TransactionClient
@@ -33,12 +32,12 @@ public abstract class TransactionClient
 
     public abstract void processTransaction(Transaction transaction);
 
-    public abstract void StartOfDay();
-    public abstract void EndOfOfDay();
+    public abstract void startOfDay();
+    public abstract void endOfOfDay();
 
-    public abstract void OnDataChanged();
+    public abstract void onDataChanged();
 
-    public abstract void CalculateInstaments();
+    public abstract void calculateInstaments();
 
     public Transaction createTransaction(TransactionType transactionType, BigDecimal amount) {
 
@@ -50,6 +49,44 @@ public abstract class TransactionClient
 
         return transaction;
     }
+
+    public void forecast(LocalDate futureDate)
+    {
+        LocalDate originalValueDate = valueDate;
+
+        LocalDate iterator = originalValueDate;
+
+        if (!account.isActive())
+        {
+            startOfDay();
+        }
+
+        while (valueDate.isBefore(futureDate) || valueDate.isEqual(futureDate) )
+        {
+            endOfOfDay();
+
+            valueDate = valueDate.plusDays(1);
+
+            startOfDay();
+        }
+
+        valueDate = originalValueDate;
+    }
+
+    /*public void SetFutureInstalmentValue(string instalmentType, ScheduledTransactionTiming timing, decimal value)
+    {
+        foreach (var instalment in Account.GetInstalments(instalmentType))
+        {
+            if (!instalment.HasFixedValue)
+            {
+                if ( (timing == ScheduledTransactionTiming.StartOfDay && instalment.ValueDate > SessionState.Current.ValueDate)
+                        || (timing == ScheduledTransactionTiming.EndOfDay && instalment.ValueDate >= SessionState.Current.ValueDate))
+                {
+                    instalment.Amount = value;
+                }
+            }
+        }
+    }*/
 }
 
 
