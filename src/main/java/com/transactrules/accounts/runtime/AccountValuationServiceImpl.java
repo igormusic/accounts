@@ -43,7 +43,7 @@ public class AccountValuationServiceImpl implements AccountValuationService {
     }
 
     private void initializePositions(Account account) {
-        for (PositionType positionType: accountType.getPositionTypes()) {
+        for (PositionType positionType: accountType.positionTypes()) {
 
             boolean hasPosition = false;
 
@@ -56,8 +56,7 @@ public class AccountValuationServiceImpl implements AccountValuationService {
 
             if(hasPosition==false){
 
-
-                Position newPosition = account.initializePosition(positionType.id());
+                Position newPosition = account.initializePosition(positionType);
 
                 positionMap.put(positionType.id(), newPosition);
             }

@@ -56,4 +56,19 @@ public class Position extends AbstractEntity {
         }
     }
 
+    public BigDecimal add(BigDecimal value) {
+        BigDecimal result = amount.add(value);
+
+        amount = value;
+
+        return amount;
+    }
+
+    public BigDecimal subtract(BigDecimal value) {
+        BigDecimal result = amount.subtract(value);
+
+        amount = value;
+
+        return amount;
+    }
 }

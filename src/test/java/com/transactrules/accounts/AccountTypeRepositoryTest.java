@@ -48,7 +48,7 @@ public class AccountTypeRepositoryTest {
 
         AccountType  readAccountType = repository.findOne(savingsAccount.id());
 
-        assertThat( readAccountType.getPositionTypes().size(), is(2));
+        assertThat( readAccountType.positionTypes().size(), is(2));
 
     }
 

@@ -2,6 +2,7 @@ package com.transactrules.accounts.runtime;
 
 import com.transactrules.accounts.AbstractEntity;
 import com.transactrules.accounts.configuration.AccountType;
+import com.transactrules.accounts.configuration.PositionType;
 import com.transactrules.accounts.configuration.TransactionRuleType;
 import com.transactrules.accounts.configuration.TransactionType;
 
@@ -63,8 +64,22 @@ public class Account extends AbstractEntity {
         transactions.add(transaction);
     }
 
-    public Position initializePosition(Long positionTypeId) {
-        Position position = new Position(positionTypeId, this);
+    private Optional<Position> getPositionByPositionTypeId(Long positionTypeId){
+        for (Position position: positions
+             ) {
+            if (position.getPositionTypeId() == positionTypeId)
+            {
+                return Optional.of(position) ;
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    public Position initializePosition(PositionType positionType) {
+
+
+        Position position = new Position(positionType.id(), this);
         positions.add(position);
         return position;
     }

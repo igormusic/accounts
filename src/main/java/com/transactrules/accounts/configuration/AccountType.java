@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -33,17 +34,19 @@ public class AccountType extends NamedAbstractEntity {
     }
 
 
-    public Set<PositionType> getPositionTypes() {
-        return positionTypes;
+    public Set<PositionType> positionTypes() {
+
+        return Collections.unmodifiableSet(positionTypes);
     }
 
-    public Set<TransactionType> getTransactionTypes() {
-        return transactionTypes;
+    public Set<TransactionType> transactionTypes() {
+
+        return Collections.unmodifiableSet(transactionTypes);
     }
 
     public Optional<TransactionType> getTransactionType(Long transactionTypeId){
 
-        for(TransactionType transactionType : getTransactionTypes()) {
+        for(TransactionType transactionType : transactionTypes()) {
            if(transactionType.id()== transactionTypeId){
                return Optional.of(transactionType);
            }

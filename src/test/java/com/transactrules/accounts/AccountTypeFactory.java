@@ -19,20 +19,20 @@ public class AccountTypeFactory {
 
         TransactionType depositTransaction = accountType.addTransactionType("Deposit", false);
 
-        depositTransaction.getTransactionRules().add(new TransactionRuleType(currentPosition, depositTransaction, TransactionOperation.Add));
+        depositTransaction.addRule(currentPosition, TransactionOperation.Add);
 
         TransactionType withdrawalTransaction = accountType.addTransactionType("Withdrawal",false);
 
-        withdrawalTransaction.getTransactionRules().add(new TransactionRuleType(currentPosition, withdrawalTransaction, TransactionOperation.Subtract));
+        withdrawalTransaction.addRule(currentPosition, TransactionOperation.Subtract);
 
         TransactionType interestAccruedTransaction = accountType.addTransactionType("InterestAccrued", true);
 
-        interestAccruedTransaction.getTransactionRules().add(new TransactionRuleType(interestAccruedPosition, interestAccruedTransaction, TransactionOperation.Add));
+        interestAccruedTransaction.addRule(interestAccruedPosition, TransactionOperation.Add);
 
         TransactionType interestCapitalizedTransaction = accountType.addTransactionType("InterestCapitalized", false);
 
-        interestCapitalizedTransaction.getTransactionRules().add(new TransactionRuleType(interestAccruedPosition,interestCapitalizedTransaction, TransactionOperation.Subtract ));
-        interestCapitalizedTransaction.getTransactionRules().add(new TransactionRuleType(currentPosition,interestCapitalizedTransaction, TransactionOperation.Add ));
+        interestCapitalizedTransaction.addRule(interestAccruedPosition, TransactionOperation.Subtract );
+        interestCapitalizedTransaction.addRule(currentPosition, TransactionOperation.Add );
 
         return accountType;
     }

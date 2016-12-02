@@ -1,5 +1,6 @@
 package com.transactrules.accounts.runtime;
 
+import com.transactrules.accounts.configuration.AccountType;
 import com.transactrules.accounts.configuration.TransactionType;
 
 import java.math.BigDecimal;
@@ -8,9 +9,10 @@ import java.util.Set;
 
 public abstract class TransactionClient
 {
-    private Account account;
-    private LocalDate actionDate;
-    private LocalDate valueDate;
+    protected Account account;
+    protected AccountType accountType;
+    protected LocalDate actionDate;
+    protected LocalDate valueDate;
 
 
     public Set<Transaction> getTransactions() {
@@ -23,9 +25,9 @@ public abstract class TransactionClient
         return account.positions();
     }
 
-    public void initialize(Account account) {
+    public void initialize(Account account, AccountType accountType) {
         this.account = account;
-
+        this.accountType = accountType;
         actionDate = LocalDate.now();
         valueDate = LocalDate.now();
     }

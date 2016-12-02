@@ -47,4 +47,7 @@ public class TransactionType extends NamedAbstractEntity {
         return transactionRules;
     }
 
+    public void addRule(PositionType positionType, TransactionOperation operation) {
+        transactionRules.add(new TransactionRuleType(positionType, this, operation));
+    }
 }

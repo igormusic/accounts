@@ -37,11 +37,11 @@ public class Transaction extends AbstractEntity {
         this.valueDate = valueDate;
     }
 
-    public Long getTransactionTypeId() {
+    public Long transactionTypeId() {
         return transactionTypeId;
     }
 
-    public BigDecimal getAmount() {
+    public BigDecimal amount() {
         return amount;
     }
 

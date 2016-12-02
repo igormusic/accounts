@@ -18,7 +18,7 @@ public class AccountFactory {
 
         client = (TransactionClient) generatedType.newInstance();
 
-        client.initialize(account);
+        client.initialize(account, accountType);
 
         return client;
     }
