@@ -2,12 +2,14 @@ package com.transactrules.accounts.runtime;
 
 import com.transactrules.accounts.AbstractEntity;
 import com.transactrules.accounts.configuration.AccountType;
+import com.transactrules.accounts.configuration.TransactionRuleType;
+import com.transactrules.accounts.configuration.TransactionType;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by 313798977 on 2016/11/11.
@@ -25,16 +27,17 @@ public class Account extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
 
-    Account(){
+    Account() {
 
     }
+
     public Account(String accountNumber, Long accountTypeId) {
         this.accountNumber = accountNumber;
         this.accountTypeId = accountTypeId;
         this.isActive = false;
     }
 
-    public String getAccountNumber() {
+    public String accountNumber() {
         return accountNumber;
     }
 
@@ -42,16 +45,28 @@ public class Account extends AbstractEntity {
         return isActive;
     }
 
-    public Long getAccountTypeId() {
+    public Long accountTypeId() {
         return accountTypeId;
     }
 
-    public Set<Position> getPositions() {
-        return positions;
+    public Set<Position> positions() {
+
+        return Collections.unmodifiableSet(this.positions);
     }
 
-    public Set<Transaction> getTransactions() {
-        return transactions;
+    public Set<Transaction> transactions() {
+
+        return Collections.unmodifiableSet(transactions);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    public Position initializePosition(Long positionTypeId) {
+        Position position = new Position(positionTypeId, this);
+        positions.add(position);
+        return position;
     }
 
 }

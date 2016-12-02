@@ -21,38 +21,38 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @CreatedBy
-    String createdBy;
+    private String createdBy;
 
     @LastModifiedBy
-    String modifiedBy;
+    private String modifiedBy;
 
     @CreatedDate
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;
 
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
-    public String getCreatedBy() {
+    public String createdBy() {
         return createdBy;
     }
 
-    public String getModifiedBy() {
+    public String modifiedBy() {
         return modifiedBy;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public LocalDateTime createdDate() {
         return createdDate;
     }
 
-    public LocalDateTime getModifiedDate() {
+    public LocalDateTime modifiedDate() {
         return modifiedDate;
     }
 
