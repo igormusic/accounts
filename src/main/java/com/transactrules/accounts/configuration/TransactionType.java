@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,16 +36,17 @@ public class TransactionType extends NamedAbstractEntity {
 
     }
 
-    public AccountType getAccountType() {
+    public AccountType accountType() {
         return accountType;
     }
 
-    public boolean isMaximumPrecision() {
+    public boolean maximumPrecision() {
         return maximumPrecision;
     }
 
-    public Set<TransactionRuleType> getTransactionRules() {
-        return transactionRules;
+    public Set<TransactionRuleType> transactionRules() {
+
+        return Collections.unmodifiableSet(transactionRules);
     }
 
     public void addRule(PositionType positionType, TransactionOperation operation) {

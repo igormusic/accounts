@@ -37,7 +37,7 @@ public class TransactionRuleType extends AbstractEntity {
         return posititonType.id();
     }
 
-    public TransactionType getTransactionType() {
+    public TransactionType transactionType() {
         return transactionType;
     }
 

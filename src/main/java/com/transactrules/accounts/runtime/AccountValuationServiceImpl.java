@@ -65,7 +65,7 @@ public class AccountValuationServiceImpl implements AccountValuationService {
 
     private void processTransaction(TransactionType transactionType, BigDecimal amount) {
 
-        for (TransactionRuleType rule: transactionType.getTransactionRules()) {
+        for (TransactionRuleType rule: transactionType.transactionRules()) {
             Position position = positionMap.get(rule.positionTypeId());
 
             position.applyOperation(rule.transactionOperation(), amount);
