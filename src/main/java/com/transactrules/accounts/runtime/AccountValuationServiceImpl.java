@@ -48,7 +48,7 @@ public class AccountValuationServiceImpl implements AccountValuationService {
             boolean hasPosition = false;
 
             for(Position position: account.positions()) {
-                if(position.getPositionTypeId()== positionType.id()) {
+                if(position.positionTypeId()== positionType.id()) {
                     positionMap.put(positionType.id(), position);
                     hasPosition = true;
                 }

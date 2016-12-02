@@ -56,7 +56,7 @@ public class AccountServiceTest {
 
         accountValuationService.createTransaction(depositTransactionType.get(), BigDecimal.valueOf(100));
 
-        Optional<Position> currentPosition = account.positions().stream().filter(p -> p.getPositionTypeId() == currentPositionType.get().id()).findFirst();
+        Optional<Position> currentPosition = account.positions().stream().filter(p -> p.positionTypeId() == currentPositionType.get().id()).findFirst();
 
         assertThat(currentPosition.isPresent(),is(true));
 

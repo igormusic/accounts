@@ -15,12 +15,12 @@ public abstract class TransactionClient
     protected LocalDate valueDate;
 
 
-    public Set<Transaction> getTransactions() {
+    public Set<Transaction> transactions() {
 
         return account.transactions();
     }
 
-    public Set<Position> getPositions() {
+    public Set<Position> positions() {
 
         return account.positions();
     }

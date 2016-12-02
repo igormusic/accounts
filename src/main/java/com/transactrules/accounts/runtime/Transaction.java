@@ -45,15 +45,15 @@ public class Transaction extends AbstractEntity {
         return amount;
     }
 
-    public Account getAccount() {
+    public Account account() {
         return account;
     }
 
-    public LocalDate getActionDate() {
+    public LocalDate actionDate() {
         return actionDate;
     }
 
-    public LocalDate getValueDate() {
+    public LocalDate valueDate() {
         return valueDate;
     }
 }

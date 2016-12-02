@@ -31,7 +31,7 @@ public class Position extends AbstractEntity {
         this.account = account;
     }
 
-    public Long getPositionTypeId() {
+    public Long positionTypeId() {
         return positionTypeId;
     }
 
@@ -39,7 +39,7 @@ public class Position extends AbstractEntity {
         return amount;
     }
 
-    public Account getAccount() {
+    public Account account() {
         return account;
     }
 

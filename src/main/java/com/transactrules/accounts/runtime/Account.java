@@ -1,15 +1,11 @@
 package com.transactrules.accounts.runtime;
 
 import com.transactrules.accounts.AbstractEntity;
-import com.transactrules.accounts.configuration.AccountType;
 import com.transactrules.accounts.configuration.PositionType;
-import com.transactrules.accounts.configuration.TransactionRuleType;
-import com.transactrules.accounts.configuration.TransactionType;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -67,7 +63,7 @@ public class Account extends AbstractEntity {
     private Optional<Position> getPositionByPositionTypeId(Long positionTypeId){
         for (Position position: positions
              ) {
-            if (position.getPositionTypeId() == positionTypeId)
+            if (position.positionTypeId() == positionTypeId)
             {
                 return Optional.of(position) ;
             }
