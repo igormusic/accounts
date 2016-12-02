@@ -35,7 +35,7 @@ public class Position extends AbstractEntity {
         return positionTypeId;
     }
 
-    public BigDecimal getAmount() {
+    public BigDecimal amount() {
         return amount;
     }
 

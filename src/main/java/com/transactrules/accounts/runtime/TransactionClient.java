@@ -47,7 +47,7 @@ public abstract class TransactionClient
 
         processTransaction(transaction);
 
-        account.transactions().add(transaction);
+        account.addTransaction(transaction);
 
         return transaction;
     }

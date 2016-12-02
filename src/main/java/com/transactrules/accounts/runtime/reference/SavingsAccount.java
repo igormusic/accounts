@@ -15,6 +15,13 @@ public class SavingsAccount extends TransactionClient {
 
     public Position current() {
 
+        if (current == null){
+            Optional<PositionType> positionType = accountType.getPositionTypeByName("Current");
+
+            if(positionType.isPresent()){
+                this.current= this.account.initializePosition(positionType.get());
+            }
+        }
         return this.current;
     }
 
@@ -38,7 +45,14 @@ public class SavingsAccount extends TransactionClient {
 
         switch (transactionType.get().name())
         {
-            case "deposit":
+            case "Deposit":
+                current().add(transaction.amount());
+            case "Withdrawal":
+                current().subtract(transaction.amount());
+            case "InterestAccrued":
+                interestAccrued().add(transaction.amount());
+            case "InterestCapitalized":
+                interestAccrued().subtract(transaction.amount());
                 current().add(transaction.amount());
             default:
 
