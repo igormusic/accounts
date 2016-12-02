@@ -27,19 +27,15 @@ public class AccountTypeRepositoryTest {
 
         repository.save(accountType);
 
-        assertThat(accountType.getId(),is(not(0)));
+        assertThat(accountType.id(),is(not(0)));
 
-        accountType.setName("updated");
+        AccountType retrieved = repository.findOne(accountType.id());
 
-        repository.saveAndFlush(accountType);
+        assertThat(retrieved.name,is("simple"));
 
-        AccountType updated = repository.findOne(accountType.getId());
+        repository.delete(accountType.id());
 
-        assertThat(updated.getName(),is("updated"));
-
-        repository.delete(accountType.getId());
-
-        boolean exists =  repository.exists(accountType.getId());
+        boolean exists =  repository.exists(accountType.id());
 
         assertThat(exists, is(false));
     }
@@ -50,7 +46,7 @@ public class AccountTypeRepositoryTest {
 
         repository.saveAndFlush(savingsAccount);
 
-        AccountType  readAccountType = repository.findOne(savingsAccount.getId());
+        AccountType  readAccountType = repository.findOne(savingsAccount.id());
 
         assertThat( readAccountType.getPositionTypes().size(), is(2));
 

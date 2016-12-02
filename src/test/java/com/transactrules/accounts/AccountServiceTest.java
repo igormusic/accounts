@@ -44,7 +44,7 @@ public class AccountServiceTest {
     @Test
     public void ProcessTransaction_deposit(){
 
-        Account account = new Account("001", savingsAccountType.getId());
+        Account account = new Account("001", savingsAccountType.id());
 
         Optional<TransactionType> depositTransactionType = savingsAccountType.getTransactionTypeByName("Deposit");
         Optional<PositionType> currentPositionType = savingsAccountType.getPositionTypeByName("Current");
@@ -56,7 +56,7 @@ public class AccountServiceTest {
 
         accountValuationService.createTransaction(depositTransactionType.get(), BigDecimal.valueOf(100));
 
-        Optional<Position> currentPosition = account.getPositions().stream().filter(p -> p.getPositionTypeId() == currentPositionType.get().getId()).findFirst();
+        Optional<Position> currentPosition = account.positions().stream().filter(p -> p.getPositionTypeId() == currentPositionType.get().id()).findFirst();
 
         assertThat(currentPosition.isPresent(),is(true));
 

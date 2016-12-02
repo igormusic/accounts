@@ -41,7 +41,7 @@ public class AccountFactory {
     }
 
     private static String GetTypeName(AccountType accountType) {
-        return "com.transactrules.accounts.runtime" + accountType.getName();
+        return "com.transactrules.accounts.runtime" + accountType.name();
     }
 
     private static Class GenerateAccountType(AccountType accountType) {

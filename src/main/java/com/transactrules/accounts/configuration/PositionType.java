@@ -22,8 +22,8 @@ public class PositionType  extends NamedAbstractEntity {
     }
 
     public PositionType(AccountType accountType, String name) {
+        super(name);
         this.accountType = accountType;
-        this.name = name;
     }
 
     public AccountType getAccountType() {

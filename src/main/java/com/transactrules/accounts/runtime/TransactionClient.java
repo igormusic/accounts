@@ -15,12 +15,12 @@ public abstract class TransactionClient
 
     public Set<Transaction> getTransactions() {
 
-        return account.getTransactions();
+        return account.transactions();
     }
 
     public Set<Position> getPositions() {
 
-        return account.getPositions();
+        return account.positions();
     }
 
     public void initialize(Account account) {
@@ -41,11 +41,11 @@ public abstract class TransactionClient
 
     public Transaction createTransaction(TransactionType transactionType, BigDecimal amount) {
 
-        Transaction transaction = new Transaction(transactionType.getId(),amount,account, actionDate, valueDate);
+        Transaction transaction = new Transaction(transactionType.id(),amount,account, actionDate, valueDate);
 
         processTransaction(transaction);
 
-        account.getTransactions().add(transaction);
+        account.transactions().add(transaction);
 
         return transaction;
     }

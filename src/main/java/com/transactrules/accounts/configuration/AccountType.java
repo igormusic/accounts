@@ -44,7 +44,7 @@ public class AccountType extends NamedAbstractEntity {
     public Optional<TransactionType> getTransactionType(Long transactionTypeId){
 
         for(TransactionType transactionType : getTransactionTypes()) {
-           if(transactionType.getId()== transactionTypeId){
+           if(transactionType.id()== transactionTypeId){
                return Optional.of(transactionType);
            }
         }
@@ -66,11 +66,11 @@ public class AccountType extends NamedAbstractEntity {
     }
 
     public Optional<PositionType> getPositionTypeByName(String name){
-        return positionTypes.stream().filter(pt -> pt.getName().equalsIgnoreCase(name)).findFirst();
+        return positionTypes.stream().filter(pt -> pt.name().equalsIgnoreCase(name)).findFirst();
     }
 
     public Optional<TransactionType> getTransactionTypeByName(String name){
-        return transactionTypes.stream().filter(tt->tt.getName().equalsIgnoreCase(name)).findFirst();
+        return transactionTypes.stream().filter(tt->tt.name().equalsIgnoreCase(name)).findFirst();
     }
 
 

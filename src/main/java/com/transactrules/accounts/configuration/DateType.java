@@ -17,8 +17,8 @@ public class DateType extends NamedAbstractEntity {
     DateType(){}
 
     DateType(AccountType accountType, String name) {
+        super(name);
         this.accountType = accountType;
-        this.name = name;
     }
 
     public AccountType getAccountType() {

@@ -33,15 +33,15 @@ public class TransactionRuleType extends AbstractEntity {
         return posititonType;
     }
 
-    public Long getPositionTypeId() {
-        return posititonType.getId();
+    public Long positionTypeId() {
+        return posititonType.id();
     }
 
     public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public TransactionOperation getTransactionOperation() {
+    public TransactionOperation transactionOperation() {
         return transactionOperation;
     }
 

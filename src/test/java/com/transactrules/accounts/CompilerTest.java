@@ -4,6 +4,9 @@ import com.transactrules.accounts.test.DoubleCalculation;
 import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
 import org.junit.Test;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupDir;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -68,4 +71,11 @@ public class CompilerTest {
         assertThat(calc.calculate(), is(2.0));
 
     }
+
+//    @Test
+//    public void TestCodeGenerationTemplate()
+//    {
+//        STGroup group = new STGroupDir("templates/");
+//        ST st = group.getInstanceOf("accountType");
+//    }
 }

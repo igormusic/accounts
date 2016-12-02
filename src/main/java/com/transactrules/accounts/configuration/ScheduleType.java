@@ -24,8 +24,8 @@ public class ScheduleType extends NamedAbstractEntity {
     ScheduleType(){}
 
     ScheduleType(AccountType accountType, String name) {
+        super(name);
         this.accountType = accountType;
-        this.name = name;
     }
 
     public AccountType getAccountType() {

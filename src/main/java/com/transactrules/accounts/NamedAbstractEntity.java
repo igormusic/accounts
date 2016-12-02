@@ -10,20 +10,21 @@ public class NamedAbstractEntity extends AbstractEntity {
 
     protected String name;
 
-    protected NamedAbstractEntity() {
+    public NamedAbstractEntity()
+    {
 
     }
+
 
     public NamedAbstractEntity(String name){
         this.name = name;
     }
 
-    public String getName(){
-        return name;
+    public String name(){
+
+        return this.name;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
+
 
 }

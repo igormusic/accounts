@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Created by 313798977 on 2016/11/12.
@@ -34,7 +33,7 @@ public class AccountValuationServiceImpl implements AccountValuationService {
     public void initialize(Account account) {
         this.account = account;
         positionMap = new HashMap<>();
-        accountType = accountTypeRepository.findOne(account.getAccountTypeId());
+        accountType = accountTypeRepository.findOne(account.accountTypeId());
         actionDate = LocalDate.now();
         valueDate = LocalDate.now();
 
@@ -48,17 +47,19 @@ public class AccountValuationServiceImpl implements AccountValuationService {
 
             boolean hasPosition = false;
 
-            for(Position position: account.getPositions()) {
-                if(position.getPositionTypeId()== positionType.getId()) {
-                    positionMap.put(positionType.getId(), position);
+            for(Position position: account.positions()) {
+                if(position.getPositionTypeId()== positionType.id()) {
+                    positionMap.put(positionType.id(), position);
                     hasPosition = true;
                 }
             }
 
             if(hasPosition==false){
-                Position newPosition = new Position(positionType.getId(),account);
-                account.getPositions().add(newPosition);
-                positionMap.put(positionType.getId(), newPosition);
+
+
+                Position newPosition = account.initializePosition(positionType.id());
+
+                positionMap.put(positionType.id(), newPosition);
             }
         }
     }
@@ -66,20 +67,20 @@ public class AccountValuationServiceImpl implements AccountValuationService {
     private void processTransaction(TransactionType transactionType, BigDecimal amount) {
 
         for (TransactionRuleType rule: transactionType.getTransactionRules()) {
-            Position position = positionMap.get(rule.getPositionTypeId());
+            Position position = positionMap.get(rule.positionTypeId());
 
-            position.applyOperation(rule.getTransactionOperation(), amount);
+            position.applyOperation(rule.transactionOperation(), amount);
         }
     }
 
     @Override
     public Transaction createTransaction(TransactionType transactionType, BigDecimal amount) {
 
-        Transaction transaction = new Transaction(transactionType.getId(),amount,account, actionDate, valueDate);
+        Transaction transaction = new Transaction(transactionType.id(),amount,account, actionDate, valueDate);
 
         processTransaction(transactionType, amount);
 
-        account.getTransactions().add(transaction);
+        account.addTransaction(transaction);
 
         return transaction;
     }
