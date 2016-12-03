@@ -22,7 +22,7 @@ public class TransactionType extends NamedAbstractEntity {
     @ManyToOne
     private AccountType accountType;
     private boolean maximumPrecision;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "transactionType")
     private Set<TransactionRuleType> transactionRules;
 
     public TransactionType(AccountType accountType,String name,  boolean hasMaximumPrecission) {

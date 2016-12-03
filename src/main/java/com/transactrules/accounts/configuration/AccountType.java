@@ -19,10 +19,10 @@ import java.util.Set;
 @Entity
 public class AccountType extends NamedAbstractEntity {
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
     private Set<PositionType> positionTypes = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "accountType")
     private Set<TransactionType> transactionTypes = new HashSet<>();
 
     AccountType() {

@@ -23,6 +23,11 @@ public class TransactionRuleType extends AbstractEntity {
     private TransactionType transactionType;
     private TransactionOperation transactionOperation;
 
+    public TransactionRuleType()
+    {
+
+    }
+
     public TransactionRuleType(PositionType posititonType, TransactionType transactionType, TransactionOperation transactionOperation) {
         this.posititonType = posititonType;
         this.transactionType = transactionType;

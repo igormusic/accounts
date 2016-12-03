@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class PositionType  extends NamedAbstractEntity {
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne()
     private AccountType accountType;
 
     PositionType() {
