@@ -1,18 +1,21 @@
 package com.transactrules.accounts;
 
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
 import com.transactrules.accounts.test.DoubleCalculation;
 import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
 import org.junit.Test;
-import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.STGroupDir;
+import com.github.mustachejava.MustacheFactory;
+
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import java.io.File;
-import java.util.Date;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 
 /**
  * Created by Administrator on 11/29/2016.
@@ -72,10 +75,18 @@ public class CompilerTest {
 
     }
 
-//    @Test
-//    public void TestCodeGenerationTemplate()
-//    {
-//        STGroup group = new STGroupDir("templates/");
-//        ST st = group.getInstanceOf("accountType");
-//    }
+    @Test
+    public void TestCodeGenerationTemplate()
+    {
+        MustacheFactory mf = new DefaultMustacheFactory();
+        Mustache mustache = mf.compile("templates\\accountType.mustache");
+        try {
+            mustache.execute(new PrintWriter(System.out), AccountTypeFactory.createSavingsAccountType() ).flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assertThat(true,is(true));
+
+    }
 }

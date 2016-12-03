@@ -34,7 +34,7 @@ public class TransactionRuleType extends AbstractEntity {
         this.transactionOperation = transactionOperation;
     }
 
-    public PositionType getPosititonType() {
+    public PositionType positionType() {
         return posititonType;
     }
 
