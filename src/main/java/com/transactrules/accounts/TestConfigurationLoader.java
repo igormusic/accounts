@@ -32,8 +32,6 @@ public class TestConfigurationLoader implements CommandLineRunner {
 
         logger.info("press any key ...");
 
-        System.console().readLine();
-
     }
 
 

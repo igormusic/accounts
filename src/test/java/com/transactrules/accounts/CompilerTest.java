@@ -79,7 +79,7 @@ public class CompilerTest {
     public void TestCodeGenerationTemplate()
     {
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile("templates\\accountType.mustache");
+        Mustache mustache = mf.compile("templates//accountType.mustache");
         try {
             mustache.execute(new PrintWriter(System.out), AccountTypeFactory.createSavingsAccountType() ).flush();
         } catch (IOException e) {
