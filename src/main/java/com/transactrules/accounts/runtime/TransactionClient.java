@@ -5,6 +5,7 @@ import com.transactrules.accounts.configuration.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class TransactionClient
@@ -20,7 +21,7 @@ public abstract class TransactionClient
         return account.transactions();
     }
 
-    public Set<Position> positions() {
+    public Map<String,Position> positions() {
 
         return account.positions();
     }

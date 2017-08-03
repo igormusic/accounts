@@ -45,17 +45,11 @@ public class AccountValuationServiceImpl implements AccountValuationService {
     private void initializePositions(Account account) {
         for (PositionType positionType: accountType.positionTypes()) {
 
-            boolean hasPosition = false;
-
-            for(Position position: account.positions()) {
-                if(position.positionTypeId()== positionType.id()) {
-                    positionMap.put(positionType.id(), position);
-                    hasPosition = true;
-                }
-            }
-
-            if(hasPosition==false){
-
+           if(account.positions().containsKey(positionType.name()))
+           {
+               positionMap.put(positionType.id(), account.positions().get(positionType.name()));
+           }
+           else{
                 Position newPosition = account.initializePosition(positionType);
 
                 positionMap.put(positionType.id(), newPosition);

@@ -19,7 +19,7 @@ public class Account extends AbstractEntity {
     private Long accountTypeId;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Set<Position> positions = new HashSet<>();
+    private Map<String,Position> positions = new HashMap<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
@@ -46,9 +46,9 @@ public class Account extends AbstractEntity {
         return accountTypeId;
     }
 
-    public Set<Position> positions() {
+    public Map<String,Position> positions() {
 
-        return Collections.unmodifiableSet(this.positions);
+        return Collections.unmodifiableMap(this.positions);
     }
 
     public Set<Transaction> transactions() {
@@ -61,7 +61,7 @@ public class Account extends AbstractEntity {
     }
 
     private Optional<Position> getPositionByPositionTypeId(Long positionTypeId){
-        for (Position position: positions
+        for (Position position: positions.values()
              ) {
             if (position.positionTypeId() == positionTypeId)
             {
@@ -76,7 +76,7 @@ public class Account extends AbstractEntity {
 
 
         Position position = new Position(positionType.id(), this);
-        positions.add(position);
+        positions.put(positionType.name(), position);
         return position;
     }
 
