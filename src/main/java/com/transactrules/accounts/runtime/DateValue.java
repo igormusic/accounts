@@ -1,0 +1,35 @@
+package com.transactrules.accounts.runtime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.transactrules.accounts.AbstractEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+
+@Entity
+public class DateValue extends AbstractEntity {
+    private LocalDate date;
+
+    @JsonIgnore
+    @ManyToOne
+    private Account account;
+
+    DateValue(){
+
+    }
+
+    public DateValue(Account account) {
+        this.date = LocalDate.now();
+        this.account = account;
+    }
+
+    public LocalDate date() {
+        return date;
+    }
+
+    public Account account() {
+        return account;
+    }
+
+}

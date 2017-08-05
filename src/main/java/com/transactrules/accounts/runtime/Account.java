@@ -22,6 +22,9 @@ public class Account extends AbstractEntity {
     private Map<String,Position> positions = new HashMap<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Map<String,DateValue> dates = new HashMap<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
 
     Account() {
@@ -60,20 +63,7 @@ public class Account extends AbstractEntity {
         transactions.add(transaction);
     }
 
-    private Optional<Position> getPositionByPositionTypeId(Long positionTypeId){
-        for (Position position: positions.values()
-             ) {
-            if (position.positionTypeId() == positionTypeId)
-            {
-                return Optional.of(position) ;
-            }
-        }
-
-        return Optional.empty();
-    }
-
     public Position initializePosition(PositionType positionType) {
-
 
         Position position = new Position(positionType.id(), this);
         positions.put(positionType.name(), position);

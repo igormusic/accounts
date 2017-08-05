@@ -10,7 +10,7 @@ public enum ScheduleEndType {
 
     private final int value;
 
-    private ScheduleEndType(int value) {
+     ScheduleEndType(int value) {
         this.value = value;
     }
 

@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Entity
 public class Position extends AbstractEntity {
 
-    private Long positionTypeId;
     private BigDecimal amount;
 
     @JsonIgnore
@@ -26,13 +25,8 @@ public class Position extends AbstractEntity {
     }
 
     public Position(Long positionTypeId, Account account) {
-        this.positionTypeId = positionTypeId;
         this.amount = BigDecimal.ZERO;
         this.account = account;
-    }
-
-    public Long positionTypeId() {
-        return positionTypeId;
     }
 
     public BigDecimal amount() {
