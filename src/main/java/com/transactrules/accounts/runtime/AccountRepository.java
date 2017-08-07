@@ -1,5 +1,6 @@
 package com.transactrules.accounts.runtime;
 
+import com.transactrules.accounts.runtime.accounts.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

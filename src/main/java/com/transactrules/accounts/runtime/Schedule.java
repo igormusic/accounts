@@ -5,7 +5,7 @@ import com.transactrules.accounts.AbstractEntity;
 import com.transactrules.accounts.configuration.BusinessDayCalculation;
 import com.transactrules.accounts.configuration.ScheduleEndType;
 import com.transactrules.accounts.configuration.ScheduleFrequency;
-import org.apache.tomcat.jni.Local;
+import com.transactrules.accounts.runtime.accounts.Account;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

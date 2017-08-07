@@ -1,6 +1,7 @@
 package com.transactrules.accounts.runtime;
 
 import com.transactrules.accounts.configuration.*;
+import com.transactrules.accounts.runtime.accounts.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

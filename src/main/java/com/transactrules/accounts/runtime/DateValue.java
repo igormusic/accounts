@@ -2,6 +2,7 @@ package com.transactrules.accounts.runtime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.transactrules.accounts.AbstractEntity;
+import com.transactrules.accounts.runtime.accounts.Account;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

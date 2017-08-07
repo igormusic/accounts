@@ -4,14 +4,11 @@ import com.transactrules.accounts.configuration.BusinessDayCalculation;
 import com.transactrules.accounts.configuration.ScheduleEndType;
 import com.transactrules.accounts.configuration.ScheduleFrequency;
 import com.transactrules.accounts.runtime.*;
+import com.transactrules.accounts.runtime.accounts.Account;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

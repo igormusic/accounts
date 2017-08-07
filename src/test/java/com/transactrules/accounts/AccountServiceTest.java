@@ -4,9 +4,15 @@ import com.transactrules.accounts.configuration.AccountType;
 import com.transactrules.accounts.configuration.AccountTypeRepository;
 import com.transactrules.accounts.configuration.PositionType;
 import com.transactrules.accounts.configuration.TransactionType;
-import com.transactrules.accounts.runtime.Account;
+import com.transactrules.accounts.runtime.accounts.Account;
 import com.transactrules.accounts.runtime.AccountValuationService;
 import com.transactrules.accounts.runtime.Position;
+import com.transactrules.accounts.runtime.accounts.AccountCreatedEvent;
+import com.transactrules.accounts.runtime.accounts.CreateAccountCommand;
+import org.axonframework.commandhandling.model.AggregateLifecycle;
+import org.axonframework.commandhandling.model.ApplyMore;
+import org.axonframework.common.IdentifierFactory;
+import org.axonframework.eventsourcing.GenericAggregateFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +50,16 @@ public class AccountServiceTest {
     @Test
     public void ProcessTransaction_deposit(){
 
-        Account account = new Account("001", savingsAccountType.id());
+       Account account = new Account(new CreateAccountCommand("001", savingsAccountType.id()));
+
+        //Account account = new Account());
+
+         GenericAggregateFactory<Account> factory = new GenericAggregateFactory<>(Account.class);
+
+         String accountId =  IdentifierFactory.getInstance().generateIdentifier();
+
+         //factory.createAggregateRoot(accountId, new AccountCreatedEvent(accountId,"001", savingsAccountType.id()))
+
 
         Optional<TransactionType> depositTransactionType = savingsAccountType.getTransactionTypeByName("Deposit");
         Optional<PositionType> currentPositionType = savingsAccountType.getPositionTypeByName("Current");
