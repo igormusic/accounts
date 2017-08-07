@@ -24,6 +24,19 @@ public class Calendar extends AbstractEntity implements BusinessDayCalculator {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar")
     private Set<HolidayDate> holidays = new HashSet<>();
 
+    public Calendar(){
+
+    }
+
+    public Calendar(String name){
+        this.name = name;
+    }
+
+    public Calendar add(String descrption, LocalDate date){
+        holidays.add(new HolidayDate(descrption, date));
+        return this;
+    }
+
     public Boolean IsBusinessDay(LocalDate date)
     {
         if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY )
@@ -31,7 +44,7 @@ public class Calendar extends AbstractEntity implements BusinessDayCalculator {
             return false;
         }
 
-        return holidaysMap().containsKey(date);
+        return (holidaysMap().containsKey(date)==false);
     }
 
     protected Map<LocalDate, HolidayDate> holidaysMap()

@@ -6,6 +6,7 @@ import com.transactrules.accounts.configuration.PositionType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -17,6 +18,7 @@ public class Account extends AbstractEntity {
     private String accountNumber;
     private boolean isActive;
     private Long accountTypeId;
+    public transient BusinessDayCalculator businessDayCalculator;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Map<String,Position> positions = new HashMap<>();
@@ -27,7 +29,7 @@ public class Account extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
 
-    Account() {
+    public Account() {
 
     }
 
@@ -52,6 +54,10 @@ public class Account extends AbstractEntity {
     public Map<String,Position> positions() {
 
         return Collections.unmodifiableMap(this.positions);
+    }
+
+    public Map<String,DateValue> dates(){
+        return this.dates;
     }
 
     public Set<Transaction> transactions() {

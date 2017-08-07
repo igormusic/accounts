@@ -20,4 +20,13 @@ public class HolidayDate extends AbstractEntity {
     public LocalDate value(){
         return value;
     }
+
+    public HolidayDate(){
+
+    }
+
+    public HolidayDate(String description, LocalDate value){
+        this.description = description;
+        this.value = value;
+    }
 }

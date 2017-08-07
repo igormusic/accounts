@@ -19,8 +19,8 @@ public class DateValue extends AbstractEntity {
 
     }
 
-    public DateValue(Account account) {
-        this.date = LocalDate.now();
+    public DateValue(Account account, LocalDate date) {
+        this.date = date;
         this.account = account;
     }
 

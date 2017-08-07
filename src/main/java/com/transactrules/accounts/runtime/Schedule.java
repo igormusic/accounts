@@ -5,6 +5,7 @@ import com.transactrules.accounts.AbstractEntity;
 import com.transactrules.accounts.configuration.BusinessDayCalculation;
 import com.transactrules.accounts.configuration.ScheduleEndType;
 import com.transactrules.accounts.configuration.ScheduleFrequency;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Schedule extends AbstractEntity {
@@ -22,25 +24,25 @@ public class Schedule extends AbstractEntity {
 
     @JsonIgnore
     @ManyToOne
-    private Account account;
+    public Account account;
 
-    private String scheduleType;
-    private LocalDate startDate;
-    private ScheduleEndType endType;
-    private ScheduleFrequency frequency;
-    private LocalDate endDate;
-    private Integer interval;
-    private Integer numberOfRepeats;
+    public String scheduleType;
+    public LocalDate startDate;
+    public ScheduleEndType endType;
+    public ScheduleFrequency frequency;
+    public LocalDate endDate;
+    public Integer interval;
+    public Integer numberOfRepeats;
 
-    private BusinessDayCalculation businessDayCalculation;
+    public BusinessDayCalculation businessDayCalculation;
     
-    transient BusinessDayCalculator businessDayCalculator;
+    public transient BusinessDayCalculator businessDayCalculator;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "includeInSchedule")
-    private Set<ScheduleDate> includeDates;
+    public Set<ScheduleDate> includeDates;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "excludeFromSchedule")
-    private Set<ScheduleDate> excludeDates;
+    public Set<ScheduleDate> excludeDates;
     
     public Boolean IsDue(LocalDate date)
     {
@@ -57,7 +59,7 @@ public class Schedule extends AbstractEntity {
             }
         }
         
-        Set<LocalDate> dates = GetAllDates(LastPossibleDate());
+        List<LocalDate> dates = GetAllDates(LastPossibleDate());
 
         return dates.contains(date);
     }
@@ -78,15 +80,14 @@ public class Schedule extends AbstractEntity {
         return IsDue(SessionState.current().valueDate());
     }
 
-    private transient Map<LocalDate, Set<LocalDate>> cachedDates = new HashMap<>();
+    private transient Map<LocalDate, List<LocalDate>> cachedDates = new HashMap<>();
 
-
-    public Set<LocalDate> GetAllDates()
+    public List<LocalDate> GetAllDates()
     {
         return GetAllDates(LastPossibleDate());
     }
 
-    public Set<LocalDate> GetAllDates(LocalDate toDate)
+    public List<LocalDate> GetAllDates(LocalDate toDate)
     {
         if (cachedDates.containsKey(toDate))
             return cachedDates.get(toDate);
@@ -109,18 +110,19 @@ public class Schedule extends AbstractEntity {
         }
 
         for(ScheduleDate includeDate: this.includeDates){
-            dates.add( includeDate.value());
+            dates.add( includeDate.value);
         }
 
 
         for(ScheduleDate excludeDate : this.excludeDates)
         {
-            dates.remove(excludeDate.value());
+            dates.remove(excludeDate.value);
         }
 
-        cachedDates.put(toDate,dates );
+        List<LocalDate> sortedDates = dates.stream().sorted().collect(Collectors.toList());
+        cachedDates.put(toDate,sortedDates );
 
-        return dates;
+        return sortedDates;
     }
 
     private LocalDate GetNextDate(int repeats, LocalDate iterator)
