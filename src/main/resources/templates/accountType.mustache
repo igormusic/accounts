@@ -1,0 +1,19 @@
+function create{{name}}(account, accountType) {
+    var accountValuation = Java.type("com.transactrules.accounts.runtime.accounts.AccountValuation");
+
+    var valuationType = Java.extend(accountValuation,{
+    {{#dateTypes}}
+
+         function {{name}}()  {
+            return Java.super(valuationType).account.dates().get("{{name}}").date();
+        }
+
+    {{/dateTypes}}
+    });
+
+    var valuation = new valuationType();
+
+    valuation.initialize(account,accountType);
+
+    return valuation;
+}

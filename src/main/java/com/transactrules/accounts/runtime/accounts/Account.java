@@ -1,6 +1,8 @@
 package com.transactrules.accounts.runtime.accounts;
 
 import com.transactrules.accounts.AbstractEntity;
+import com.transactrules.accounts.configuration.AccountType;
+import com.transactrules.accounts.configuration.DateType;
 import com.transactrules.accounts.configuration.PositionType;
 import com.transactrules.accounts.runtime.*;
 import org.axonframework.commandhandling.CommandHandler;
@@ -13,6 +15,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -41,6 +44,13 @@ public class Account {
 
     }
 
+    public void initialize(AccountType accountType){
+        for (DateType dateType: accountType.dateTypes()
+             ) {
+            dates.put(dateType.name(), new DateValue(this, LocalDate.MIN));
+        }
+
+    }
     @CommandHandler
     public Account(CreateAccountCommand createAccountCmd){
 /*
@@ -94,7 +104,6 @@ handleAccountCreated( new AccountCreatedEvent(
 
         return Collections.unmodifiableSet(transactions);
     }
-
 
 
     public void addTransaction(Transaction transaction) {

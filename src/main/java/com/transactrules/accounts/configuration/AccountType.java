@@ -50,6 +50,10 @@ public class AccountType extends NamedAbstractEntity {
         return Collections.unmodifiableSet(transactionTypes);
     }
 
+    public Set<DateType> dateTypes(){
+        return Collections.unmodifiableSet(dateTypes);
+    }
+
     public Optional<TransactionType> getTransactionType(Long transactionTypeId){
 
         for(TransactionType transactionType : transactionTypes()) {
