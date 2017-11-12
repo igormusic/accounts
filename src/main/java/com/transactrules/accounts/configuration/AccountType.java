@@ -25,6 +25,18 @@ public class AccountType extends NamedAbstractEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
     private Set<DateType> dateTypes = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
+    private Set<AmountType> amountTypes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
+    private Set<RateType> rateTypes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
+    private Set<OptionType> optionTypes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "accountType")
+    private Set<ScheduledTransaction> scheduledTransactions = new HashSet<>();
+
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "accountType")
     private Set<TransactionType> transactionTypes = new HashSet<>();
 
@@ -84,6 +96,13 @@ public class AccountType extends NamedAbstractEntity {
         return transactionType;
     }
 
+    public TransactionType addTransactionType(String name){
+        TransactionType transactionType = new TransactionType(this,name, false);
+        transactionTypes.add(transactionType);
+
+        return transactionType;
+    }
+
     public ScheduleType addCalculatedScheduleType(String name,
                                                   ScheduleFrequency frequency,
                                                   ScheduleEndType endType,
@@ -123,5 +142,37 @@ public class AccountType extends NamedAbstractEntity {
     }
 
 
+    public AmountType addAmountType(String name, Boolean isValueDated) {
+        AmountType amountType = new AmountType(this,name, isValueDated);
+        amountTypes.add(amountType);
+        return amountType;
+    }
 
+    public RateType addRateType(String name){
+        RateType rateType = new RateType(this, name);
+        rateTypes.add(rateType);
+        return rateType;
+    }
+
+    public OptionType addOptionType(String name, String optionListExpression){
+        OptionType optionType = new OptionType(this, name, optionListExpression);
+        optionTypes.add(optionType);
+        return  optionType;
+    }
+
+    public ScheduledTransaction addDayScheduledTransaction(AccountType accountType,String name,ScheduledTransactionTiming timing,DateType dateType, TransactionType transactionType, String amountExpression, Integer sequence){
+        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( accountType,name,timing,dateType, null, transactionType, amountExpression, sequence);
+
+        scheduledTransactions.add(scheduledTransaction);
+
+        return  scheduledTransaction;
+    }
+
+    public ScheduledTransaction addScheduledTransaction(AccountType accountType,String name,ScheduledTransactionTiming timing,ScheduleType scheduleType, TransactionType transactionType, String amountExpression, Integer sequence){
+        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( accountType,name,timing,null, scheduleType, transactionType, amountExpression, sequence);
+
+        scheduledTransactions.add(scheduledTransaction);
+
+        return  scheduledTransaction;
+    }
 }

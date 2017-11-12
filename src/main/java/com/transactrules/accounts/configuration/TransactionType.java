@@ -49,7 +49,9 @@ public class TransactionType extends NamedAbstractEntity {
         return Collections.unmodifiableSet(transactionRules);
     }
 
-    public void addRule(PositionType positionType, TransactionOperation operation) {
+    public TransactionType addRule(PositionType positionType, TransactionOperation operation) {
         transactionRules.add(new TransactionRuleType(positionType, this, operation));
+
+        return this;
     }
 }

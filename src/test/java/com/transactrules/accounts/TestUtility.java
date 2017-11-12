@@ -3,6 +3,7 @@ package com.transactrules.accounts;
 import com.transactrules.accounts.configuration.*;
 import com.transactrules.accounts.runtime.Calendar;
 import com.transactrules.accounts.runtime.HolidayDate;
+import com.transactrules.accounts.runtime.Transaction;
 
 import java.time.LocalDate;
 
@@ -26,7 +27,7 @@ public class TestUtility {
             "AccrualSchedule",
                 ScheduleFrequency.Daily,
                 ScheduleEndType.NoEnd,
-                "this.StartDate",
+                "this.StartDate()",
                 "",
                 "",
                 "1"
@@ -51,106 +52,51 @@ public class TestUtility {
             "1"
         );
 
-        TransactionType interestAccrued=  loanGiven.addTransactionType(
-                "InterestAccrued",
-                true);
+        TransactionType interestAccrued=  loanGiven.addTransactionType("InterestAccrued", true)
+            .addRule(interestAccruedPosition, TransactionOperation.Add);
 
-        interestAccrued.addRule(interestAccruedPosition, TransactionOperation.Add);
-
-
-        TransactionType interestCapitalizedTransactionType = loanGiven.addTransactionType(
-            "InterestCapitalized",
-            false);
-
-        interestCapitalizedTransactionType.addRule(principalPosition,  TransactionOperation.Add );
-        interestCapitalizedTransactionType.addRule(interestAccruedPosition,  TransactionOperation.Subtract );
-        interestCapitalizedTransactionType.addRule(interestCapitalizedPosition, TransactionOperation.Add );
+        loanGiven.addTransactionType("InterestCapitalized")
+            .addRule(principalPosition,  TransactionOperation.Add )
+            .addRule(interestAccruedPosition,  TransactionOperation.Subtract )
+            .addRule(interestCapitalizedPosition, TransactionOperation.Add );
 
 
-        TransactionType redemptionTransactionType = loanGiven.addTransactionType("Redemption", false);
+        loanGiven.addTransactionType("Redemption")
+            .addRule(principalPosition, TransactionOperation.Subtract );
 
-        redemptionTransactionType.addRule(principalPosition, TransactionOperation.Subtract );
+        loanGiven.addTransactionType("Advance")
+            .addRule( principalPosition,  TransactionOperation.Add );
 
+        loanGiven.addTransactionType("AdditionalAdvance")
+            .addRule(principalPosition, TransactionOperation.Add);
 
-        TransactionType advanceTransactionType = loanGiven.addTransactionType("Advance", false);
+        loanGiven.addTransactionType("ConversionInterest")
+            .addRule(conversionInterestPosition, TransactionOperation.Add);
 
-        advanceTransactionType.addRule( principalPosition,  TransactionOperation.Add );
+        loanGiven.addTransactionType("EarlyRedemptionFee")
+                .addRule(earlyRedemptionFeePosition, TransactionOperation.Add);
 
-/*
+        loanGiven.addTransactionType("FXResultInterest")
+                .addRule(interestAccruedPosition, TransactionOperation.Add);
 
-            new TransactionType {
-                Name = "AdditionalAdvance",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = principalPosition, TransactionOperation = TransactionOperation.Add }
-                }
-            },
-            advanceTransactionType,
-                    new TransactionType {
-                Name = "ConversionInterest",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = conversionInterestPosition, TransactionOperation = TransactionOperation.Add }
-                }
-            },
+        loanGiven.addTransactionType("FXResultPrincipal")
+                .addRule(principalPosition, TransactionOperation.Add);
 
-            new TransactionType {
-                Name = "EarlyRedemptionFee",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = earlyRedemptionFeePosition, TransactionOperation = TransactionOperation.Add }
-                }
-            },
+        loanGiven.addTransactionType("InterestPayment")
+                .addRule(interestAccruedPosition, TransactionOperation.Subtract);
 
-            new TransactionType {
-                Name = "FXResultInterest",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = interestAccruedPosition, TransactionOperation = TransactionOperation.Add }
-                }
-            },
+        loanGiven.addAmountType("RedemptionAmount" , false);
+        loanGiven.addAmountType("AdditionalAdvanceAmount" , false);
+        loanGiven.addAmountType("ConversionInterestAmount" , false);
+        loanGiven.addAmountType("AdvanceAmount" , false);
 
-            new TransactionType {
-                Name = "FXResultPrincipal",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = principalPosition, TransactionOperation = TransactionOperation.Add }
-                }
-            },
+        loanGiven.addRateType("InterestRate");
 
+        loanGiven.addOptionType("AccrualOption", "com.transactrules.accounts.calculations.AccrualCalculation.AccrualOptions()");
 
-                    new TransactionType {
-                Name = "InterestPayment",
-                        TransactionRules = new List<TransactionRuleType> {
-                    new TransactionRuleType { PositionType = interestAccruedPosition, TransactionOperation = TransactionOperation.Subtract }
-                }
-            },
 
         /*
 
-            AmountTypes = new List<AmountType> {
-            new AmountType { Name = "RedemptionAmount" },
-            new AmountType { Name = "AdditionalAdvanceAmount" },
-            new AmountType { Name = "ConversionInterestAmount" },
-            new AmountType { Name = "AdvanceAmount" },
-        },
-
-            DateTypes = new List<DateType> {
-            accrualStart,
-                    startDate,
-                    endDate,
-        },
-
-            ScheduleTypes = new List<ScheduleType>(){
-                accrualSchedule,
-                interestSchedule,
-                redemptionSchedule
-            },
-
-                    RateTypes = new List<RateType>() {
-                        new RateType { Name = "InterestRate" }
-                    },
-
-                    OptionTypes = new List<OptionType>() {
-                        new OptionType {Name = "AccrualOption",
-                                OptionListExpression = "TransactRules.Calculations.AccrualCalculation.AccrualOptions()"}
-                    }
-                    ,
                     ScheduledTransactions = new List<ScheduledTransaction>() {
                          new ScheduledTransaction {
                             AmountExpression = "AdvanceAmount",
