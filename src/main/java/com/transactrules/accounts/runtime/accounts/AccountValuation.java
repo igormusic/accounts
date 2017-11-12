@@ -35,7 +35,7 @@ public abstract class AccountValuation
         this.accountType = accountType;
         actionDate = LocalDate.now();
         valueDate = LocalDate.now();
-    }
+    };
 
     public abstract void processTransaction(Transaction transaction);
 
@@ -81,7 +81,7 @@ public abstract class AccountValuation
     }
 
     public LocalDate StartDate(){
-        return account.dates().get("StartDate").date();
+        return account.dates().get("StartDate").date;
     }
 
     /*public void SetFutureInstalmentValue(string instalmentType, ScheduledTransactionTiming timing, decimal value)

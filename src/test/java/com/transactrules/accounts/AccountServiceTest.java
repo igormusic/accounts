@@ -74,6 +74,6 @@ public class AccountServiceTest {
         Position currentPosition = account.positions().get(currentPositionType.get().name());
 
 
-        assertThat(currentPosition.amount(), is(BigDecimal.valueOf(100)));
+        assertThat(currentPosition.amount, is(BigDecimal.valueOf(100)));
     }
 }

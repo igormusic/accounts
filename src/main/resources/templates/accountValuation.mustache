@@ -1,0 +1,80 @@
+package com.transactrules.accounts.runtime.accounts;
+
+import com.transactrules.accounts.configuration.AccountType;
+import com.transactrules.accounts.runtime.DateValue;
+import com.transactrules.accounts.runtime.Position;
+import com.transactrules.accounts.runtime.Transaction;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class {{name}}Valuation extends AccountValuation {
+
+{{#positionTypes}}
+    private Position _{{name}};
+{{/positionTypes}}
+
+{{#dateTypes}}
+    private DateValue _{{name}};
+{{/dateTypes}}
+
+{{#positionTypes}}
+    public BigDecimal {{name}}() {
+        return _{{name}}.amount;
+    }
+{{/positionTypes}}
+
+{{#dateTypes}}
+    public LocalDate {{name}}(){
+        return _{{name}}.date;
+    }
+{{/dateTypes}}
+
+    @Override
+    public void initialize(Account account, AccountType accountType) {
+
+        super.initialize(account, accountType);
+
+        //initialize dates
+
+    {{#dateTypes}}
+        _{{name}}= account.dates().get("{{name}}");
+    {{/dateTypes}}
+
+        //initialize positions
+
+        {{#positionTypes}}
+        if (!account.positions().containsKey("{{name}}")) {
+            account.initializePosition(accountType.getPositionTypeByName("{{name}}").get());
+        }
+
+        _{{name}}= account.positions().get("{{name}}");
+
+        {{/positionTypes}}
+    }
+
+    @Override
+    public void processTransaction(Transaction transaction) {
+
+    }
+
+    @Override
+    public void startOfDay() {
+
+    }
+
+    @Override
+    public void endOfOfDay() {
+
+    }
+
+    @Override
+    public void onDataChanged() {
+
+    }
+
+    @Override
+    public void calculateInstaments() {
+
+    }
+}

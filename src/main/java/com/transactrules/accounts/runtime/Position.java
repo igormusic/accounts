@@ -15,11 +15,11 @@ import java.math.BigDecimal;
 @Entity
 public class Position extends AbstractEntity {
 
-    private BigDecimal amount;
+    public BigDecimal amount;
 
     @JsonIgnore
     @ManyToOne
-    private Account account;
+    public Account account;
 
     Position(){
 
@@ -30,13 +30,6 @@ public class Position extends AbstractEntity {
         this.account = account;
     }
 
-    public BigDecimal amount() {
-        return amount;
-    }
-
-    public Account account() {
-        return account;
-    }
 
     public void applyOperation(TransactionOperation operation, BigDecimal value){
         switch (operation) {
