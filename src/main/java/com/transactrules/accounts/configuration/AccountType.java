@@ -3,10 +3,7 @@ package com.transactrules.accounts.configuration;
 
 import com.transactrules.accounts.NamedAbstractEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -64,6 +61,14 @@ public class AccountType extends NamedAbstractEntity {
 
     public Set<DateType> dateTypes(){
         return Collections.unmodifiableSet(dateTypes);
+    }
+
+    public Set<AmountType> amountTypes(){
+        return Collections.unmodifiableSet(amountTypes);
+    }
+
+    public Set<OptionType> optionTypes(){
+        return Collections.unmodifiableSet(optionTypes);
     }
 
     public Optional<TransactionType> getTransactionType(Long transactionTypeId){
@@ -160,16 +165,16 @@ public class AccountType extends NamedAbstractEntity {
         return  optionType;
     }
 
-    public ScheduledTransaction addDayScheduledTransaction(AccountType accountType,String name,ScheduledTransactionTiming timing,DateType dateType, TransactionType transactionType, String amountExpression, Integer sequence){
-        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( accountType,name,timing,dateType, null, transactionType, amountExpression, sequence);
+    public ScheduledTransaction addDayScheduledTransaction(String name,ScheduledTransactionTiming timing,DateType dateType, TransactionType transactionType, String amountExpression, Integer sequence){
+        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( this,name,timing,dateType, null, transactionType, amountExpression, sequence);
 
         scheduledTransactions.add(scheduledTransaction);
 
         return  scheduledTransaction;
     }
 
-    public ScheduledTransaction addScheduledTransaction(AccountType accountType,String name,ScheduledTransactionTiming timing,ScheduleType scheduleType, TransactionType transactionType, String amountExpression, Integer sequence){
-        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( accountType,name,timing,null, scheduleType, transactionType, amountExpression, sequence);
+    public ScheduledTransaction addScheduledTransaction(String name,ScheduledTransactionTiming timing,ScheduleType scheduleType, TransactionType transactionType, String amountExpression, Integer sequence){
+        ScheduledTransaction scheduledTransaction = new ScheduledTransaction( this,name,timing,null, scheduleType, transactionType, amountExpression, sequence);
 
         scheduledTransactions.add(scheduledTransaction);
 

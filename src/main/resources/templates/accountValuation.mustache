@@ -2,6 +2,8 @@ package com.transactrules.accounts.runtime.accounts;
 
 import com.transactrules.accounts.configuration.AccountType;
 import com.transactrules.accounts.runtime.DateValue;
+import com.transactrules.accounts.runtime.AmountValue;
+import com.transactrules.accounts.runtime.OptionValue;
 import com.transactrules.accounts.runtime.Position;
 import com.transactrules.accounts.runtime.Transaction;
 
@@ -18,9 +20,17 @@ public class {{name}}Valuation extends AccountValuation {
     private DateValue _{{name}};
 {{/dateTypes}}
 
+{{#amountTypes}}
+    private AmountValue _{{name}};
+{{/amountTypes}}
+
+{{#optionTypes}}
+    private OptionValue _{{name}};
+{{/optionTypes}}
+
 {{#positionTypes}}
     public BigDecimal {{name}}() {
-        return _{{name}}.amount;
+        return _{{name}}.amount();
     }
 {{/positionTypes}}
 
@@ -29,6 +39,18 @@ public class {{name}}Valuation extends AccountValuation {
         return _{{name}}.date;
     }
 {{/dateTypes}}
+
+{{#amountTypes}}
+    public BigDecimal {{name}}(){
+        return _{{name}}.amount();
+    }
+{{/amountTypes}}
+
+{{#optionTypes}}
+    public String {{name}}(){
+        return _{{name}}.value();
+    }
+{{/optionTypes}}
 
     @Override
     public void initialize(Account account, AccountType accountType) {
@@ -51,6 +73,17 @@ public class {{name}}Valuation extends AccountValuation {
         _{{name}}= account.positions().get("{{name}}");
 
         {{/positionTypes}}
+
+        //initialize amounts
+
+    {{#amountTypes}}
+        _{{name}}= account.amounts().get("{{name}}");
+    {{/amountTypes}}
+
+    {{#optionTypes}}
+        _{{name}}= account.options().get("{{name}}");
+        _{{name}}.setValues({{optionListExpression}});
+    {{/optionTypes}}
     }
 
     @Override

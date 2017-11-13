@@ -55,7 +55,7 @@ public class TestUtility {
         TransactionType interestAccrued=  loanGiven.addTransactionType("InterestAccrued", true)
             .addRule(interestAccruedPosition, TransactionOperation.Add);
 
-        loanGiven.addTransactionType("InterestCapitalized")
+        TransactionType interestCapitalized= loanGiven.addTransactionType("InterestCapitalized")
             .addRule(principalPosition,  TransactionOperation.Add )
             .addRule(interestAccruedPosition,  TransactionOperation.Subtract )
             .addRule(interestCapitalizedPosition, TransactionOperation.Add );
@@ -64,7 +64,7 @@ public class TestUtility {
         loanGiven.addTransactionType("Redemption")
             .addRule(principalPosition, TransactionOperation.Subtract );
 
-        loanGiven.addTransactionType("Advance")
+        TransactionType advanceTransactionType = loanGiven.addTransactionType("Advance")
             .addRule( principalPosition,  TransactionOperation.Add );
 
         loanGiven.addTransactionType("AdditionalAdvance")
@@ -92,7 +92,34 @@ public class TestUtility {
 
         loanGiven.addRateType("InterestRate");
 
-        loanGiven.addOptionType("AccrualOption", "com.transactrules.accounts.calculations.AccrualCalculation.AccrualOptions()");
+        loanGiven.addOptionType(
+                "AccrualOption",
+                "com.transactrules.accounts.calculations.AccrualCalculation.AccrualOptions()");
+
+
+        loanGiven.addDayScheduledTransaction(
+                "Advance",
+                ScheduledTransactionTiming.StartOfDay,
+                startDate,
+                advanceTransactionType,
+                "Advance()",
+                1);
+
+        loanGiven.addScheduledTransaction(
+                "InterestAccrual",
+                ScheduledTransactionTiming.EndOfDay,
+                accrualSchedule,
+                interestAccrued,
+                "com.transactrules.accounts.calculations.AccrualCalculation.InterestAccrued(AccrualOption(), Principal(), InterestRate(), ValueDate())" ,
+                1 );
+
+        loanGiven.addScheduledTransaction(
+                "InterestCapitalized",
+                ScheduledTransactionTiming.EndOfDay,
+                interestSchedule,
+                interestCapitalized,
+                "InterestAccrued()",
+                2);
 
 
         /*

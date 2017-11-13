@@ -1,9 +1,7 @@
 package com.transactrules.accounts.runtime.accounts;
 
 import com.transactrules.accounts.AbstractEntity;
-import com.transactrules.accounts.configuration.AccountType;
-import com.transactrules.accounts.configuration.DateType;
-import com.transactrules.accounts.configuration.PositionType;
+import com.transactrules.accounts.configuration.*;
 import com.transactrules.accounts.runtime.*;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
@@ -15,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.swing.text.html.Option;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -38,6 +38,12 @@ public class Account {
     private Map<String,DateValue> dates = new HashMap<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Map<String,AmountValue> amounts = new HashMap<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Map<String,OptionValue> options = new HashMap<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
 
     public Account() {
@@ -45,11 +51,23 @@ public class Account {
     }
 
     public void initialize(AccountType accountType){
-        for (DateType dateType: accountType.dateTypes()
-             ) {
-            dates.put(dateType.name(), new DateValue(this, LocalDate.MIN));
+        for (DateType dateType: accountType.dateTypes()) {
+            if(!dates.containsKey(dateType.name())){
+                dates.put(dateType.name(), new DateValue(this, LocalDate.MIN));
+            }
         }
 
+        for (AmountType amountType: accountType.amountTypes()) {
+            if(!amounts.containsKey(amountType.name())){
+                amounts.put(amountType.name(), new AmountValue(this, new BigDecimal(0)));
+            }
+        }
+
+        for (OptionType optionType: accountType.optionTypes()){
+            if(!options.containsKey(optionType.name())){
+                options.put(optionType.name(), new OptionValue(this));
+            }
+        }
     }
     @CommandHandler
     public Account(CreateAccountCommand createAccountCmd){
@@ -99,6 +117,10 @@ handleAccountCreated( new AccountCreatedEvent(
     public Map<String,DateValue> dates(){
         return this.dates;
     }
+
+    public Map<String, AmountValue> amounts() { return this.amounts;}
+
+    public Map<String,OptionValue> options() {return this.options;}
 
     public Set<Transaction> transactions() {
 

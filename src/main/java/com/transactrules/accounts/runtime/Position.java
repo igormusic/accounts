@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Entity
 public class Position extends AbstractEntity {
 
-    public BigDecimal amount;
+    private BigDecimal amount;
 
     @JsonIgnore
     @ManyToOne
@@ -58,5 +58,9 @@ public class Position extends AbstractEntity {
         amount = value;
 
         return amount;
+    }
+
+    public BigDecimal amount(){
+        return  amount;
     }
 }
