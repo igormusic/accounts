@@ -83,19 +83,22 @@ public class CodeGenTest {
         LocalDate endDate = startDate.plusYears (25);
         Calendar calendar = TestUtility.CreateEuroZoneCalendar();
 
-        Account account = CreateLoanGivenAccount(startDate, endDate,calendar);
+        Account account = CreateLoanGivenAccount(loanGivenAcccountType,startDate, endDate,calendar);
 
         loanGivenValuation.initialize(account, loanGivenAcccountType);
 
-
     }
 
-    private  Account CreateLoanGivenAccount(LocalDate startDate, LocalDate endDate, BusinessDayCalculator businessDayCalculator) {
+    private  Account CreateLoanGivenAccount(AccountType accountType, LocalDate startDate, LocalDate endDate, BusinessDayCalculator businessDayCalculator) {
         Account account = new Account();
 
-        account.dates().put("StartDate", new DateValue(account, startDate)) ;
-        account.dates().put("AccrualStart", new DateValue(account, startDate ));
-        account.dates().put("EndDate",new DateValue(account, endDate ));
+        account.initializeDate(accountType.getDateTypeByName("StartDate").get(),startDate);
+        account.initializeDate(accountType.getDateTypeByName("AccrualStart").get(),startDate);
+        account.initializeDate(accountType.getDateTypeByName("EndDate").get(),endDate);
+
+
+        account.initialize(accountType);
+
 
         //account.Amounts.Add(new AmountValue { AmountType = "AdvanceAmount", Value = 624000 });
         //account.Rates.Add(new RateValue { RateType = "InterestRate", Value = (decimal)3.04/100, ValueDate = startDate });

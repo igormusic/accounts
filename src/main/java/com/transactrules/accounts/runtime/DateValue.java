@@ -10,11 +10,12 @@ import java.time.LocalDate;
 
 @Entity
 public class DateValue extends AbstractEntity {
-    public LocalDate date;
+
 
     @JsonIgnore
     @ManyToOne
     public Account account;
+    private LocalDate date;
 
     DateValue(){
 
@@ -23,6 +24,10 @@ public class DateValue extends AbstractEntity {
     public DateValue(Account account, LocalDate date) {
         this.date = date;
         this.account = account;
+    }
+
+    public LocalDate date(){
+        return date;
     }
 
 }

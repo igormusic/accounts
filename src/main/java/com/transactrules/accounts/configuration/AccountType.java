@@ -142,6 +142,10 @@ public class AccountType extends NamedAbstractEntity {
         return positionTypes.stream().filter(pt -> pt.name().equalsIgnoreCase(name)).findFirst();
     }
 
+    public Optional<DateType> getDateTypeByName(String name){
+        return dateTypes.stream().filter(dt -> dt.name().equalsIgnoreCase(name)).findFirst();
+    }
+
     public Optional<TransactionType> getTransactionTypeByName(String name){
         return transactionTypes.stream().filter(tt->tt.name().equalsIgnoreCase(name)).findFirst();
     }

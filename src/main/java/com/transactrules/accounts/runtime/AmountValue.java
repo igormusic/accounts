@@ -2,19 +2,21 @@ package com.transactrules.accounts.runtime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.transactrules.accounts.AbstractEntity;
+import com.transactrules.accounts.NamedAbstractEntity;
 import com.transactrules.accounts.runtime.accounts.Account;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
 public class AmountValue extends AbstractEntity {
-    public BigDecimal amount;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne()
     public Account account;
+    private BigDecimal amount;
 
     AmountValue(){
 

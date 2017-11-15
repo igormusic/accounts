@@ -36,7 +36,7 @@ public class {{name}}Valuation extends AccountValuation {
 
 {{#dateTypes}}
     public LocalDate {{name}}(){
-        return _{{name}}.date;
+        return _{{name}}.date();
     }
 {{/dateTypes}}
 
@@ -65,14 +65,9 @@ public class {{name}}Valuation extends AccountValuation {
 
         //initialize positions
 
-        {{#positionTypes}}
-        if (!account.positions().containsKey("{{name}}")) {
-            account.initializePosition(accountType.getPositionTypeByName("{{name}}").get());
-        }
-
+    {{#positionTypes}}
         _{{name}}= account.positions().get("{{name}}");
-
-        {{/positionTypes}}
+    {{/positionTypes}}
 
         //initialize amounts
 
@@ -80,10 +75,18 @@ public class {{name}}Valuation extends AccountValuation {
         _{{name}}= account.amounts().get("{{name}}");
     {{/amountTypes}}
 
+        //initialize options
+
     {{#optionTypes}}
         _{{name}}= account.options().get("{{name}}");
         _{{name}}.setValues({{optionListExpression}});
     {{/optionTypes}}
+
+    {{#scheduleTypes}}
+        Schedule local{{name}};
+
+
+    {{/scheduleTypes}}
     }
 
     @Override

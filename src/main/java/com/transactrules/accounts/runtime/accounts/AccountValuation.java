@@ -24,7 +24,7 @@ public abstract class AccountValuation
         return account.transactions();
     }
 
-    public Map<String,Position> positions() {
+    public Map<Long,Position> positions() {
 
         return account.positions();
     }
@@ -82,7 +82,7 @@ public abstract class AccountValuation
     }
 
     public LocalDate StartDate(){
-        return account.dates().get("StartDate").date;
+        return account.dates().get("StartDate").date();
     }
 
     public LocalDate ValueDate(){

@@ -20,6 +20,6 @@ public class AccountTest {
                 .when(new CreateAccountCommand("001",1))
                 .expectSuccessfulHandlerExecution()
                 .expectEvents(new AccountCreatedEvent(2));
-        */
+*/
 
 }

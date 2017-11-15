@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.transactrules.accounts.NamedAbstractEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
