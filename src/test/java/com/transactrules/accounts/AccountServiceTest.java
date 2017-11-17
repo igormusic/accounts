@@ -71,7 +71,7 @@ public class AccountServiceTest {
 
         accountValuationService.createTransaction(depositTransactionType.get(), BigDecimal.valueOf(100));
 
-        Position currentPosition = account.positions().get(currentPositionType.get().name());
+        Position currentPosition = account.positions().get(currentPositionType.get().id());
 
 
         assertThat(currentPosition.amount(), is(BigDecimal.valueOf(100)));

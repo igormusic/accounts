@@ -4,6 +4,7 @@ package com.transactrules.accounts.configuration;
 import com.transactrules.accounts.NamedAbstractEntity;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -150,6 +151,14 @@ public class AccountType extends NamedAbstractEntity {
         return transactionTypes.stream().filter(tt->tt.name().equalsIgnoreCase(name)).findFirst();
     }
 
+    public Optional<AmountType> getAmountTypeByName(String name) {
+        return amountTypes.stream().filter(tt->tt.name().equalsIgnoreCase(name)).findFirst();
+    }
+
+    public Optional<OptionType> getOptionTypeByName(String name) {
+        return optionTypes.stream().filter(tt->tt.name().equalsIgnoreCase(name)).findFirst();
+    }
+
 
     public AmountType addAmountType(String name, Boolean isValueDated) {
         AmountType amountType = new AmountType(this,name, isValueDated);
@@ -184,4 +193,6 @@ public class AccountType extends NamedAbstractEntity {
 
         return  scheduledTransaction;
     }
+
+
 }

@@ -60,7 +60,7 @@ public class CodeGenTest {
     }
 
     @Test
-    public void EvaluateJS() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void EvaluateGenerated() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException {
 
         StringWriter writer = new StringWriter();
         MustacheFactory mf = new DefaultMustacheFactory();
